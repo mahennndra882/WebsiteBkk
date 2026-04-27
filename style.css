@@ -1,0 +1,59 @@
+.header{
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(WhatsApp\ Image\ 2026-04-13\ at\ 14.02.23.jpeg);
+    color: white;
+    background-position: center;
+    padding: 120px 0;
+}
+.header h1{
+    font-size: 50px;
+    font-weight: bold;
+}
+.header p{
+    font-size: 20px;
+}
+.body{
+    background-color: rgb(243, 243, 247);
+}
+.navbar{
+    background-color: rgb(171, 171, 176);
+    text-decoration-color: black;
+}
+.text{
+    color: rgb(0, 0, 13);
+}
+.text h2{
+    text-align: center;
+}
+.text p{
+    text-indent: 30px;
+    text-align: justify;
+}
+.tombol{
+    transition: transform 0.3s;
+    width: 350px;
+    height: 180px;
+    font-size: 18px;
+    border-radius: 10px;
+    }
+.tombol:hover { 
+    transform: translateY(-15px);
+}
+.btn-tips:hover{
+    background-color: #0b5ed7;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+.footer{
+    background-color: rgb(185, 211, 236);
+}
+.card-form{
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgb(243, 243, 247);
+    max-width: 90%;
+    margin: 50px auto;
+}
+.card-form h3{
+    text-align: center;
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Startup Teknologi</title>
+    <link rel="icon" href="logo.png">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .register-section {
+        margin: -60px auto 40px;
+        position: relative;
+        z-index: 2;
+      }
+      .register-card {
+        border: none;
+        border-radius: 18px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+      }
+      .register-card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, #0d6efd, #198754);
+      }
+      .register-title {
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .register-subtitle {
+        color: #5c6270;
+        margin-bottom: 0;
+      }
+      .form-label {
+        font-weight: 600;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 10px 14px;
+        font-weight: 600;
+        border: none;
+        background: linear-gradient(90deg, #0d6efd, #198754);
+      }
+      .submit-btn:hover {
+        filter: brightness(0.95);
+      }
+      .form-control {
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .form-control:focus {
+        border-color: #4f8dff;
+        box-shadow: 0 0 0 0.2rem rgba(79, 141, 255, 0.2);
+      }
+      @media (max-width: 768px) {
+        .header {
+          padding: 90px 0;
+        }
+        .header h1 {
+          font-size: 28px;
+        }
+        .header p {
+          font-size: 16px;
+        }
+        .register-section {
+          margin-top: -45px;
+          padding: 0 10px;
+        }
+      }
+    </style>
+</head>
+<body class="body">
+    <main id="beranda">
+      <header class="header text-center text-light">
+        <div class="container">
+          <h1>SKILL TO CAREER - SMK NEGERI 5 SURAKARTA</h1>
+          <p>Menyediakan informasi lowongan kerja untuk alumni SMK</p>
+        </div>
+      </header>
+    </main>
+    <section class="container register-section">
+      <div class="card register-card">
+        <div class="card-body p-4 p-md-5">
+          <div class="text-center mb-4">
+            <h2 class="register-title">Registrasi Akun</h2>
+            <p class="register-subtitle">Silakan lengkapi formulir registrasi untuk mulai melamar pekerjaan.</p>
+          </div>
+
+          <form id="registrasiForm" action="beranda.html" method="post">
+            <div class="mb-3">
+              <label for="inputNama" class="form-label">Nama Lengkap</label>
+              <input type="text" class="form-control" id="inputNama" name="nama" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputTglLahir" class="form-label">Tanggal Lahir</label>
+              <input type="date" class="form-control" id="inputTglLahir" name="tanggal_lahir" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputNomor" class="form-label">Nomor Telepon</label>
+              <input type="tel" class="form-control" id="inputNomor" name="nomor_telepon" pattern="[0-9]{10,15}" required>
+            </div>
+
+            <div class="mb-4">
+              <label for="inputEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="inputEmail" name="email" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const BOT_TOKEN = "8714879140:AAEKZvXgK3tvIru9oHWqlbzg8NkynF0TJO8";
+      const CHAT_ID = "8235804328";
+
+      async function kirimNotifikasiTelegram(text) {
+        if (!BOT_TOKEN || !CHAT_ID || BOT_TOKEN === "ISI_BOT_TOKEN_ANDA" || CHAT_ID === "ISI_CHAT_ID_ANDA") {
+          console.warn("BOT_TOKEN atau CHAT_ID belum disetting.");
+          return;
+        }
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const payload = new URLSearchParams({
+          chat_id: CHAT_ID,
+          text: text,
+          parse_mode: "HTML"
+        });
+
+        await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: payload
+        });
+      }
+
+      document.getElementById("registrasiForm").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const form = event.target;
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        const nama = document.getElementById("inputNama").value.trim();
+        const tglLahir = document.getElementById("inputTglLahir").value;
+        const nomor = document.getElementById("inputNomor").value.trim();
+        const email = document.getElementById("inputEmail").value.trim();
+
+        const pesan =
+          "✅ <b>PENDAFTARAN BARU - PPLG 2</b>\n" +
+          "────────────────────\n" +
+          "👤 <b>Nama</b>\n" + nama + "\n\n" +
+          "🎂 <b>Tanggal Lahir</b>\n" + tglLahir + "\n\n" +
+          "📞 <b>Nomor Telepon</b>\n" + nomor + "\n\n" +
+          "📧 <b>Email</b>\n" + email + "\n" +
+          "────────────────────\n" +
+          "🕒 <i>Data masuk dari form website BKK</i>";
+
+        try {
+          await kirimNotifikasiTelegram(pesan);
+        } catch (error) {
+          console.error("Gagal mengirim notifikasi Telegram:", error);
+        }
+
+        alert("Data Terkirim");
+        window.location.href = "beranda.html";
+      });
+    </script>
+</body>
+</html>
